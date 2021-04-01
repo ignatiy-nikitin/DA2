@@ -6,6 +6,11 @@ import {PerformanceTable} from "./PerformanceTable"
 import Request from "./Services/Request"
 import "./App.css"
 
+import { Dropdown } from "react-bootstrap";
+import DropdownMenu from "react-bootstrap/DropdownMenu";
+// import * as Console from "console";
+
+
 class App extends Component {
     constructor() {
         super();
@@ -13,7 +18,8 @@ class App extends Component {
             activeGroup: 1,
             students: null,
             type: null,
-            markPerformance: null
+            markPerformance: null,
+            groups: null
         };
     }
     componentDidMount() {
@@ -31,6 +37,12 @@ class App extends Component {
             this.setState({markPerformance: markPerformance});
             console.log(this.state.markPerformance)
         });
+
+        Request.getGroups().then((groups) => {
+            console.log(this.state.groups)
+            this.setState({groups: groups});
+            console.log(this.state.groups)
+        });
     }
 
     getStudentsByGroup(state){
@@ -46,11 +58,19 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+
                 {this.state.type ? <JournalTypeTable
                     type={this.state.type}/> : null}
 
+                {/*{this.state.groups ? <DropdownMenu*/}
+                {/*groups={this.state.groups}/>: null}*/}
+
+                {console.log(this.state.groups)}
+
+
                 {this.state.students ? <JournalTable
-                    students={this.getStudentsByGroup(this.state)}/> : null}
+                    students={this.getStudentsByGroup(this.state)} groups={this.state.groups}/> : null
+                }
 
                 {this.state.markPerformance ? <PerformanceTable
                     markPerformance={this.state.markPerformance}/> : null}

@@ -11,6 +11,14 @@ const Request = {
 
     getCourseMark() {
         return fetch(this.server + "journals/").then(res => res.json());
+    },
+
+    getGroups() {
+        return fetch(this.server + "groups/").then(res => res.json());
+    },
+
+    transferStudent() {
+        return fetch(this.server + "groups/").then(res => res.json());
     }
 };
 export default Request
